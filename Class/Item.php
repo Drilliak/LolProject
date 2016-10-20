@@ -2,7 +2,7 @@
 
 
 
-class Item{
+class Item extends Object{
 
 	protected $id,
 			  $name,
@@ -28,7 +28,8 @@ class Item{
     // Setters
 
     public function setId($id){
-    	if (is_int($id) && $id >=0){
+    	$id = (int) $id;
+    	if ($id >=0){
     		$this->id = $id;
     	}
 

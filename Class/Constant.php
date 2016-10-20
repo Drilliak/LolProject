@@ -10,6 +10,7 @@ class Constant{
 	const PATH_MYSQL_HOST = 'localhost';
 	const DATABASE_NAME = 'league_of_legends';
 	const CHAMPION_TABLE = 'champions';
+	const ITEM_TABLE =  'item';
 	public static $tablechampionColumns = array(
 						'id',
 						'name',
@@ -24,5 +25,13 @@ class Constant{
 						'attackspeedoffset',
                			'attackspeedperlevel',
 	  );
+
+	public static $tableItemColumns = array(
+					'id',
+					'name',
+					'FlatArmorMod',
+					'FlatMagicDamageMod',
+					'FlatHPPoolMod'
+		);
 
 }

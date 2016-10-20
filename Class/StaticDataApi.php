@@ -57,7 +57,6 @@ class StaticDataApi extends RiotApiManager{
 
 
 		$parsed_json = $parsed_json->{'data'};
-		var_dump($parsed_json);
 		$manager = new ChampionManager($db);
 		$manager->delete();
 

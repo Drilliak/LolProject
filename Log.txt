@@ -5,3 +5,6 @@
 			Dans la table champion, stocker l'index renseigné par l'api (clé primaire).
 			Faire une nouvelle talbe pour stocker sorts
 			Faire une nouvelle table pour stocker les itemps.
+
+20/10 : 23:45 regrouper fonction get de ChampionManager et ItemManager dans Manger.
+			  Supprimer classes héritées de manager ?  
