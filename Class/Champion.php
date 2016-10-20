@@ -177,7 +177,8 @@ class Champion{
     }
 
     public function getAttackSpeed(){
-        return 0.625/(1+$this->attackspeedoffset);
+        $stapleAttackSpeed = 0.625/(1+$this->attackspeedoffset);
+        return $stapleAttackSpeed + ($this->level-1)*(($stapleAttackSpeed/100)*$this->attackspeedperlevel);
     }
 
     // Setters

@@ -28,7 +28,8 @@ class StaticDataApi extends RiotApiManager{
 	 * Vide la table avant de la remplir
 	 * Activer l'extension  php_openssl
 	 * @return array() tableau contenant 
-	 * 					"time" => temps d'exécution
+	 * 					"totalTime" => temps d'exécution total de la méthode
+	 * 					"requestTime" => temps d'exécution de la requête (appel API)
 	 */
 	public static function fill_champion_table(){
 
@@ -45,9 +46,18 @@ class StaticDataApi extends RiotApiManager{
 
 		// Extraction des données du fichier Json
 
+		$startRequest = microtime(true);
 		$json = file_get_contents(self::build_url_champions());
+		$stopRequest = microtime(true);
+		$res['requestTime'] = $stopRequest - $startRequest;
+
+
+		$startExecution = microtime(true);
 		$parsed_json = json_decode($json);
+
+
 		$parsed_json = $parsed_json->{'data'};
+		var_dump($parsed_json);
 		$manager = new ChampionManager($db);
 		$manager->delete();
 
@@ -56,7 +66,7 @@ class StaticDataApi extends RiotApiManager{
 		{
 			$championStatsArray = array();
 			$championStatsArray['name'] = $value->{'name'};
-			//$championStatsArray['name']= $parsed_json->{'name'};
+			$championStatsArray['id']= $value->{'id'};
 			$value = $value->{'stats'};
 			foreach($value as $statName => $stat)
 			{
@@ -71,7 +81,8 @@ class StaticDataApi extends RiotApiManager{
 		
 		}
 		$stop = microtime(true);
-		$res['time'] = $stop-$start;
+		$res['totalTime'] = $stop-$start;
+		$res['executionTime'] = $stop-$startExecution;
 		return $res;
 	}
 

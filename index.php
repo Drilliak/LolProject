@@ -18,9 +18,7 @@ catch(Exception $e){
 
 $manager = new ChampionManager($db);
 
-var_dump($riven = $manager->get("riven"));
-echo $riven->getAttackSpeed();
-
+var_dump(StaticDataApi::fill_champion_table());
 ?>
 
 <!DOCTYPE html>
