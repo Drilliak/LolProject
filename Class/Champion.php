@@ -70,7 +70,7 @@ class Champion{
 
 
     /**
-     * Renvoie les dégâts physiques subient par un champion 
+     * Renvoie les dégâts physiques subis par un champion 
      * @param  Champion $c Champion attaquant           
      * @return double  Dégats subits
      */
@@ -86,6 +86,7 @@ class Champion{
      * @return array $r tableau assaciatif des attributs
      */
     public function to_array(){
+        
         $r = array();
         foreach($this as $key => $value){
             $r[$key] = $value;

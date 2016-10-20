@@ -16,9 +16,21 @@ catch(Exception $e){
 
 // -----------------------------------------------
 
-$manager = new ChampionManager($db);
+//$json = json_decode(file_get_contents("https://global.api.pvp.net/api/lol/static-data/euw/v1.2/item?itemListData=all&api_key=308fdabd-0365-4103-b5ec-e8e965db5515"));
 
-var_dump(StaticDataApi::fill_champion_table());
+
+$warmog = new Item(array(
+					'id' => 1,
+					'name' => "Warmog",
+					'FlatArmorMod' => 10,
+					'FlatMagicDamageMod' =>12, 
+					'FlatHPPoolMod' => 13
+
+					));
+
+
+var_dump($warmog);
+
 ?>
 
 <!DOCTYPE html>
