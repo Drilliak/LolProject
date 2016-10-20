@@ -1,0 +1,7 @@
+﻿16/10  01:00 : Continuer fonction fill_champion_table dans StaticDataApi.php
+18/10 01:02 : Ajouter attack speed class Champion
+			  Créer class Items
+			Ajouter url icone d'invocateur à l'aide de http://ddragon.leagueoflegends.com/cdn/6.21.1/img/champion/Riven.png
+			Dans la table champion, stocker l'index renseigné par l'api (clé primaire).
+			Faire une nouvelle talbe pour stocker sorts
+			Faire une nouvelle table pour stocker les itemps.
