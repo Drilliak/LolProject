@@ -15,11 +15,11 @@ catch(Exception $e){
 }
 
 // -----------------------------------------------
+;
 
-//$json = json_decode(file_get_contents("https://global.api.pvp.net/api/lol/static-data/euw/v1.2/item?itemListData=all&api_key=308fdabd-0365-4103-b5ec-e8e965db5515"));
 
+$manager = new Manager($db);
 
-$manager = new ItemManager($db);
 
 $warmog = new Item(array(
 					'id' => 1,
@@ -30,9 +30,7 @@ $warmog = new Item(array(
 
 					));
 
-
-var_dump($warg = $manager->get("Warmog"));
-
+var_dump(StaticDataApi::fill_table("items"));
 ?>
 
 <!DOCTYPE html>

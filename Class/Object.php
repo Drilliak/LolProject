@@ -1,8 +1,12 @@
 <?php
 
-class Object{
+abstract class Object{
 
 
+	protected $id, 
+			  $name;
+
+			  
 	 /**
      * Convertit un objet Champion en tableau associatif dont les clés sont les attributs du champion
      * @return array $r tableau assaciatif des attributs

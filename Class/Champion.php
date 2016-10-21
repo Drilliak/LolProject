@@ -19,15 +19,13 @@
 
 class Champion extends Object{
     
-    protected  $id,
-               $attackdamage,
+    protected  $attackdamage,
                $attackdamageperlevel,
                $ap = 0, 
                $armor, 
                $armorperlevel,
                $spellblock,
                $spellblockperlevel, 
-               $name,
                $hp,
                $hpperlevel,
                $attackspeedoffset,

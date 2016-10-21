@@ -4,9 +4,7 @@
 
 class Item extends Object{
 
-	protected $id,
-			  $name,
-			  $FlatArmorMod = 0,
+	protected $FlatArmorMod = 0,
 			  $FlatMagicDamageMod = 0,
 			  $FlatHPPoolMod = 0;
 	

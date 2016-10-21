@@ -3,8 +3,14 @@
 
 class StaticDataApi extends RiotApiManager{
 
+	// --------------- Constantes de classe --------------------------
+
+	/**@var int valeur retournée lorsque la table appelée n'existe pas **/
+	const NONEXISTENT_TABLE = 1; 
 	const VERSION = 'v1.2/';
 	const API_REFERENCE =  '/api/lol/static-data/';
+
+	// ------------------------------------------------------------------
 	
 	/**
 	 * Contruit l'url correspondant à l'api Riot renvoyant le json des stats sur les champions
@@ -24,57 +30,72 @@ class StaticDataApi extends RiotApiManager{
 	}
 
 	/**
-	 * Rempli table champion en fonction de l'api renvoyé par riot
-	 * Vide la table avant de la remplir
-	 * Activer l'extension  php_openssl
-	 * @return array() tableau contenant 
-	 * 					"totalTime" => temps d'exécution total de la méthode
-	 * 					"requestTime" => temps d'exécution de la requête (appel API)
+	 * Rempli la base de données donnée en paramètre à partir des données renvoyées par l'api de riot.
+	 * Commence par vider la table en place.
+	 * @param String $table table à repmplir
+	 * @return array tableau associatif contenant les données suivantes
+	 * 				requestTime : temps d'exécution de la requête (appel api uniquement)
+	 * 				executionTime : temps d'exécution de la méthode hors appel api
+	 * 				totalTime : temps total d'exécution du programme
 	 */
-	public static function fill_champion_table(){
-
+	public static function fill_table($table)
+	{
 		$start = microtime(true);
+
+		$table = strtolower($table);
+		switch($table){
+			case Constant::CHAMPION_TABLE:
+				$buildUrlMethod = "build_url_champions";
+				$table = Constant::CHAMPION_TABLE;
+				$tableColumns = Constant::$tablechampionColumns;
+				$object = 'Champion';
+				break;
+			case Constant::ITEM_TABLE:
+				$buildUrlMethod = "build_url_items";
+				$table = Constant::ITEM_TABLE;
+				$tableColumns = Constant::$tableItemColumns;
+				$object = 'Item';
+				break;
+			default:
+				return self::NONEXISTENT_TABLE;
+
+		}
+
 		$res = array(); // Tableau contenant les valeurs renvoyées par la méthode
 		// Connexion à la BDD
 		try{
 			$db = new PDO('mysql:host=' . Constant::PATH_MYSQL_HOST . ';dbname=' . Constant::DATABASE_NAME, Constant::USER_DATABASE, Constant::PASSWORD_DATABASE);
 		}
 		catch(Exception $e){
-			$e->get();
+			return $e->getMessage();
 		};
 
-
-		// Extraction des données du fichier Json
-
 		$startRequest = microtime(true);
-		$json = file_get_contents(self::build_url_champions());
+		$json = file_get_contents(self::$buildUrlMethod());
 		$stopRequest = microtime(true);
 		$res['requestTime'] = $stopRequest - $startRequest;
 
 
 		$startExecution = microtime(true);
 		$parsed_json = json_decode($json);
-
-
 		$parsed_json = $parsed_json->{'data'};
-		$manager = new ChampionManager($db);
-		$manager->delete();
 
-
+		$manager = new Manager($db, $table);
+		$manager->delete($table);
 		foreach($parsed_json as $value)
 		{
-			$championStatsArray = array();
-			$championStatsArray['name'] = $value->{'name'};
-			$championStatsArray['id']= $value->{'id'};
+			$statsArray = array();
+			$statsArray['name'] = isset($value->{'name'}) ? $value->{'name'} : "NULL";
+			$statsArray['id']= $value->{'id'};
 			$value = $value->{'stats'};
 			foreach($value as $statName => $stat)
 			{
-				if (in_array($statName, constant::$tablechampionColumns)){
-					$championStatsArray[$statName] = $stat;
+				if (in_array($statName, $tableColumns)){
+					$statsArray[$statName] = $stat;
 				}
 			}
 			// Insertion des champions à la BDD
-			$manager->add(new Champion($championStatsArray));
+			$manager->add(new $object($statsArray));
 
 
 		
@@ -83,13 +104,8 @@ class StaticDataApi extends RiotApiManager{
 		$res['totalTime'] = $stop-$start;
 		$res['executionTime'] = $stop-$startExecution;
 		return $res;
-	}
 
-	public static function fill_items_table(){
-
-		$json = file_get_contents(self::build_url_items());
-		$parsed_json = json_decode($json);
-		$parsed_json = $parsed_json->{'data'};
+		
 	}
 
 
