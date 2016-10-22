@@ -32,7 +32,16 @@ abstract class Constant{
 					'name',
 					'FlatArmorMod',
 					'FlatMagicDamageMod',
-					'FlatHPPoolMod'
+					'FlatHPPoolMod',
+					'FlatPhysicalDamageMod'
+		);
+
+	public static $itemChampionRelation = array(
+				'FlatArmorMod' =>'armor',
+				'FlatMagicDamageMod' =>'ap',
+				'FlatHPPoolMod' => 'hp',
+				'FlatPhysicalDamageMod' => 'attackdamage'
+
 		);
 
 }

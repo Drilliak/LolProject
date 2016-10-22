@@ -20,17 +20,9 @@ catch(Exception $e){
 
 $manager = new Manager($db);
 
+$essenceReaver = $manager->get(3508, "items");
+var_dump($essenceReaver);
 
-$warmog = new Item(array(
-					'id' => 1,
-					'name' => "Warmog",
-					'FlatArmorMod' => 10,
-					'FlatMagicDamageMod' =>12, 
-					'FlatHPPoolMod' => 13
-
-					));
-
-var_dump(StaticDataApi::fill_table("items"));
 ?>
 
 <!DOCTYPE html>

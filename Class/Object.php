@@ -15,7 +15,9 @@ abstract class Object{
 
         $r = array();
         foreach($this as $key => $value){
-            $r[$key] = $value;
+        	if (!is_array($value)){
+           		 $r[$key] = $value;
+        	}
         }
 
         return $r;

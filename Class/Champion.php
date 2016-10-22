@@ -168,6 +168,25 @@ class Champion extends Object{
         return $stapleAttackSpeed + ($this->level-1)*(($stapleAttackSpeed/100)*$this->attackspeedperlevel);
     }
 
+    public function addItem(Item $item)
+    {
+        if (sizeof($this->items)<6)
+        {
+            $itemArray = $item->to_array();
+            $championArray = $this->to_array();
+            array_push($this->items, $item);
+            foreach ($itemArray as $key => $value){
+                if (array_key_exists($key, Constant::$itemChampionRelation))
+                {
+                    $methodSet = 'set'.ucfirst(Constant::$itemChampionRelation[$key]);
+                    $methodGet = 'get'.ucfirst(Constant::$itemChampionRelation[$key]);
+                    $statTemp = $this->$methodGet();
+                    $this->$methodSet($statTemp + $value);
+
+                }
+            }
+        }
+    }   
     // Setters
 
     public function setSpellblockperlevel($spellblockperlevel){

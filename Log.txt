@@ -1,10 +1,36 @@
-﻿16/10  01:00 : Continuer fonction fill_champion_table dans StaticDataApi.php
-18/10 01:02 : Ajouter attack speed class Champion
-			  Créer class Items
-			Ajouter url icone d'invocateur à l'aide de http://ddragon.leagueoflegends.com/cdn/6.21.1/img/champion/Riven.png
-			Dans la table champion, stocker l'index renseigné par l'api (clé primaire).
-			Faire une nouvelle talbe pour stocker sorts
-			Faire une nouvelle table pour stocker les itemps.
+﻿16/10 : 01:00
 
-20/10 : 23:45 regrouper fonction get de ChampionManager et ItemManager dans Manger.
-			  Supprimer classes héritées de manager ?  
+Continuer fonction fill_champion_table dans StaticDataApi.php
+
+--------------------
+
+18/10 : 01:02  
+
+Ajouter attack speed class Champion
+Créer class Items
+Ajouter url icone d'invocateur à l'aide de http://ddragon.leagueoflegends.com/cdn/6.21.1/img/champion/Riven.png
+Dans la table champion, stocker l'index renseigné par l'api (clé primaire).
+Faire une nouvelle talbe pour stocker sorts
+Faire une nouvelle table pour stocker les itemps.
+
+--------------------
+
+20/10 : 23:45
+
+regrouper fonction get de ChampionManager et ItemManager dans Manger.
+Supprimer classes héritées de manager ?  
+
+--------------------
+
+21/10 : 23:47 
+
+récupérer toutes les données nécessaires à la classe item et adapater la table en conséquence
+Ajouter méthode pour créer stuff d'un champion (et implémenter méthode modifiant stats)
+Implémenter méthode pour fight champion.
+
+--------------------
+
+23/10 : 01:06
+
+Créer une classe ChampionFighter qui gère les combats entre deux champions
+Ajouter caractéristiques manquantes de la classe Item

@@ -6,7 +6,8 @@ class Item extends Object{
 
 	protected $FlatArmorMod = 0,
 			  $FlatMagicDamageMod = 0,
-			  $FlatHPPoolMod = 0;
+			  $FlatHPPoolMod = 0,
+			  $FlatPhysicalDamageMod = 0;
 	
 	public function hydrate(array $data){
         foreach ($data as $key => $value) {
@@ -56,6 +57,13 @@ class Item extends Object{
     	$flatHpPoolMod = (float) $flatHpPoolMod;
     	if ($flatHpPoolMod >=0){
     		$this->FlatHPPoolMod = $flatHpPoolMod;
+    	}
+    }
+
+    public function setFlatPhysicalDamageMod($flatPhysicalDamageMod){
+    	$flatPhysicalDamageMod = (float) $flatPhysicalDamageMod;
+    	if ($flatPhysicalDamageMod >=0){
+    		$this->FlatPhysicalDamageMod = $flatPhysicalDamageMod;
     	}
     }
 

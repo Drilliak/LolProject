@@ -13,6 +13,8 @@ class Manager{
 	const NONEXISTENT_TABLE = 1; 
 	/**@var int valeur retournée si l'objet rentrée en paramètre n'existe pas **/
 	const UNTRAEATED_OBJECT = 2;
+	/**@var int valeur retournée si le type d'objet rentré en paramètre de get n'est pas traité **/
+	const UNTRAEATED_DATA_INPUT_TYPE = 3;
 
 // ------------------------------------------------
 
@@ -81,14 +83,28 @@ class Manager{
 
 	/**
 	 * Permet de rechercher un objet (item ou champion) dans la base de données appropriée
-	 * à partir de son nom
-	 * @param type $name nom de l'objet à retourner
+	 * à partir de son nom ou de son id
+	 * @param type $data nom de l'objet à retourner
 	 * @param type $table table dans lequel il faut exécuter la recherche
 	 * @return type Object l'objet recherché s'il a été trouvé
 	 * 				bool false si la recherche à échouer
 	 * 				int self::NONEXISTENT_TABLE si la table rentrée en paramètre n'existe pas
+	 * 				int self::UNTRAEATED_DATA_INPUT_TYPE si le type de $data n'est pas un entier ou une chaine de caractère
 	 */
-	public function get($name, $table){
+	public function get($data, $table){
+
+		// Cas d'une requête où l'on effectue la recherche à l'aide de l'id de l'objet
+		if (is_int($data)){
+			$endRequest = ' FROM ' . $table . ' WHERE id = :id;';
+		}
+		elseif (is_string($data)) // Cas où l'on effectue la recherche à l'aide du nom du champion
+		{
+			$endRequest = ' FROM ' . $table . ' WHERE name = :name;';
+		}
+		else
+		{
+			return self::UNTRAEATED_DATA_INPUT_TYPE;
+		}
 
 		switch ($table = strtolower($table)){
 			case Constant::ITEM_TABLE:
@@ -111,15 +127,22 @@ class Manager{
 			$req .= $value . ', ';
 		}
 		$req = rtrim($req, ' ,');
-		$req .= ' FROM ' . $table . ' WHERE name = :name;';
+		$req .= $endRequest;
 		$q = $this->db->prepare($req);
-		$q->execute(array(':name' =>$name));
+		if (is_int($data)){
+			$q->execute(array(':id' =>$data));
+		}
+		elseif (is_string($data)) 
+		{
+			$q->execute(array(':name' =>$data));
+		}
 		$res = $q->fetch(PDO::FETCH_ASSOC);
 		if ($res == false){
 			return false;
 		}
 		return new $type($res);
 	}
+
 
 	public function delete($table){
 		$table = strtolower($table);
