@@ -30,6 +30,7 @@ class Champion extends Object{
                $hpperlevel,
                $attackspeedoffset,
                $attackspeedperlevel,
+               $critChance = 0,
                $level=1,
                $items = array();
 
@@ -56,30 +57,6 @@ class Champion extends Object{
         $this->hydrate($data);
     }
 
-
-    /**
-     * Multiplicateur de dégâts
-     * @param float $reduction armure ou résistance magique
-     * @return float multiplicateur de dégâts
-     */
-    private static function damage_multiplier($reduction){
-        return 100/(100+$reduction);
-    }
-
-
-    /**
-     * Renvoie les dégâts physiques subis par un champion 
-     * @param  Champion $c Champion attaquant           
-     * @return double  Dégats subits
-     */
-    public function damages_ad_taken(Champion $c){
-        $armorReduction = self::damage_multiplier($this->armor);
-        return $armorReduction*$c->ad;
-    }
-
-
-
- 
 
 
     /**
@@ -168,7 +145,7 @@ class Champion extends Object{
         return $stapleAttackSpeed + ($this->level-1)*(($stapleAttackSpeed/100)*$this->attackspeedperlevel);
     }
 
-    public function addItem(Item $item)
+    public function add_item(Item $item)
     {
         if (sizeof($this->items)<6)
         {
@@ -279,6 +256,13 @@ class Champion extends Object{
         }
     }
 
+    public function setCritChance($critChance){
+        $critChance = (float) $critChance;
+        if ($critChance >=0 && $critChance <=1){
+            $this->critChance == $critChance;
+        }
+    }
+
     // Getters
 
     public function getId(){
@@ -313,10 +297,6 @@ class Champion extends Object{
         return $this->spellblockperlevel;
     }
 
-    public function getName(){
-        return $this->name;
-    }
-
     public function getHp(){
         return $this->hp;
     }
@@ -339,6 +319,10 @@ class Champion extends Object{
 
     public function getAttackspeedperlevel(){
         return $this->attackspeedperlevel;
+    }
+
+    public function getCritChance(){
+        return $this->critChance;
     }
 
 }

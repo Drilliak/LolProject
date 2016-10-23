@@ -7,7 +7,9 @@ class Item extends Object{
 	protected $FlatArmorMod = 0,
 			  $FlatMagicDamageMod = 0,
 			  $FlatHPPoolMod = 0,
-			  $FlatPhysicalDamageMod = 0;
+			  $FlatPhysicalDamageMod = 0,
+			  $FlatSpellBlockMod = 0,
+			  $FlatCritChanceMod = 0;
 	
 	public function hydrate(array $data){
         foreach ($data as $key => $value) {
@@ -64,6 +66,20 @@ class Item extends Object{
     	$flatPhysicalDamageMod = (float) $flatPhysicalDamageMod;
     	if ($flatPhysicalDamageMod >=0){
     		$this->FlatPhysicalDamageMod = $flatPhysicalDamageMod;
+    	}
+    }
+
+    public function setFlatSpellBlockMod($flatSpellBlockMod){
+    	$flatSpellBlockMod = (float) $flatSpellBlockMod;
+    	if ($flatSpellBlockMod >= 0){
+    		$this->FlatSpellBlockMod = $flatSpellBlockMod;
+    	}
+    }
+
+    public function setFlatCritChanceMod($flatCritChanceMod){
+    	$flatCritChanceMod = (float) $flatCritChanceMod;
+    	if ($flatCritChanceMod >=0 ){
+    		$this->FlatCritChanceMod = $flatCritChanceMod;
     	}
     }
 

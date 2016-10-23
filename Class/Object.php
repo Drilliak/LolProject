@@ -23,6 +23,10 @@ abstract class Object{
         return $r;
     }
 
+    public function getName(){
+    	return $this->name;
+    }
+
 
 
 

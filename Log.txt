@@ -34,3 +34,12 @@ Implémenter méthode pour fight champion.
 
 Créer une classe ChampionFighter qui gère les combats entre deux champions
 Ajouter caractéristiques manquantes de la classe Item
+
+-------------------
+
+24/10 : 01:01
+
+Données renvoyées par l'API (ou trouvées sur internet) incohérentes avec les données en jeu !
+Finir implémentation de la méthode kill_duration (penser à prendre en compte les critChance)
+Rajouter statistique lifeSteal.
+

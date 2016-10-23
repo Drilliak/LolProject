@@ -33,15 +33,21 @@ abstract class Constant{
 					'FlatArmorMod',
 					'FlatMagicDamageMod',
 					'FlatHPPoolMod',
-					'FlatPhysicalDamageMod'
+					'FlatPhysicalDamageMod',
+					'FlatSpellBlockMod',
+					'FlatCritChanceMod'
 		);
 
 	public static $itemChampionRelation = array(
 				'FlatArmorMod' =>'armor',
 				'FlatMagicDamageMod' =>'ap',
 				'FlatHPPoolMod' => 'hp',
-				'FlatPhysicalDamageMod' => 'attackdamage'
+				'FlatPhysicalDamageMod' => 'attackdamage',
+				'FlatSpellBlockMod' => 'spellblock',
+				'FlatCritChanceMod' => 'critChance'
 
 		);
+
+
 
 }

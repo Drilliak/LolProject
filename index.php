@@ -20,11 +20,21 @@ catch(Exception $e){
 
 $manager = new Manager($db);
 
-$essenceReaver = $manager->get(3508, "items");
-var_dump($essenceReaver);
+$annie= $manager->get('annie', 'champions');
+$riven = $manager->get('riven', 'champions');
+
+var_dump($riven);
+var_dump($annie);
+
+
+$championFighter = new ChampionFighter($riven, $annie);
+var_dump($championFighter->auto_attack_damage("name"));
+
+$championFighter->kill_duration();
+
+
 
 ?>
-
 <!DOCTYPE html>
 </html>
 	<head>
