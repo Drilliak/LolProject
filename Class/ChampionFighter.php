@@ -33,7 +33,7 @@ class ChampionFighter{
 
     /**
      * Retourne un tableau indiquant les dégâts infligés par une auto attaque par le champion 1 sur le champion 2.
-     * Les clés su tableau sont de base des id, mais peuvent être les noms des champions si le paramètres de la fonction est "name"
+     * Les clés du tableau sont de base des id, mais peuvent être les noms des champions si le paramètres de la fonction est "name"
      * Par exemple, dans un combats riven olaf, le tableau retourné sera le suivant :
      * 					"riven" => 50 : dégâts infligés par Riven sur Olaf
      * 					"olaf" =>55 : dégâts infligés par Olaf sur Riven
@@ -63,14 +63,19 @@ class ChampionFighter{
 
     }
 
-    public function kill_duration(){
 
+    /**
+     * Retourne un tableau contenant l'id ou le nom du champion (selon le paramètre rentré)
+     * et renvoyant le temps (en seconde) de afin de tuer le champion adverse à l'auto attaque.
+     * @return type
+     */
+    public function kill_duration($indexType = 'id'){
 
-    	$attackSpeedChampion1 = $this->champion1->getAttackSpeed();
-    	$attackSpeedChampion2 = $this->champion2->getAttackSpeed();
+        $res = array();
 
     	$hpPoolChampion1 = $this->champion1->getHp();
     	$hpPoolChampion2 = $this->champion2->getHp();
+
     	$dealtDamageArray = $this->auto_attack_damage();
     	$dealtDamageChampion1 = $dealtDamageArray[$this->champion1->getId()];
     	$dealtDamageChampion2 = $dealtDamageArray[$this->champion2->getId()];
@@ -87,8 +92,27 @@ class ChampionFighter{
     		$numberAAChampion1 +=1;
     	}
 
-    	echo $this->champion2->getName() . " " . $numberAAChampion2 . '<br>';
-    	echo $this->champion1->getName() . " " . $numberAAChampion1;
+
+        if ($indexType == 'id'){
+
+            $res[$this->champion1->getId()] = $numberAAChampion1 * $this->champion1->getAttackSpeed();
+            $res[$this->champion2->getId()] = $numberAAChampion2 * $this->champion2->getAttackSpeed();
+
+        }elseif($indexType == 'name'){
+
+            $res[$this->champion1->getName()] = $numberAAChampion1 * $this->champion1->getAttackSpeed();
+            $res[$this->champion2->getName()] = $numberAAChampion2 * $this->champion2->getAttackSpeed();
+
+        }else{
+            return self::UNTREATED_INPUT_VALUE;
+        }
+
+        return $res;
+
+
+
+
+
 
 
 

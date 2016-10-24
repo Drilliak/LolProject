@@ -32,6 +32,7 @@ class Champion extends Object{
                $attackspeedperlevel,
                $critChance = 0,
                $level=1,
+               $lifeSteal = 0,
                $items = array();
 
     // ----- Constantes de classe ----------

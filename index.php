@@ -30,7 +30,7 @@ var_dump($annie);
 $championFighter = new ChampionFighter($riven, $annie);
 var_dump($championFighter->auto_attack_damage("name"));
 
-$championFighter->kill_duration();
+var_dump($championFighter->kill_duration('name'));
 
 
 
