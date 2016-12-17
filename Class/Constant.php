@@ -1,4 +1,4 @@
-<?php
+﻿<?php
 
 /**
  * Classe destinée à regrouper les constantes utiles au fonctionnement de l'application
@@ -49,5 +49,6 @@ abstract class Constant{
 		);
 
 
+	public static test = "coucou";
 
 }
